@@ -1,0 +1,28 @@
+name: Validar aplicación PHP
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validar-php:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v5
+
+      - name: Configurar PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+
+      - name: Validar sintaxis PHP
+        run: |
+          php -l origen/index.php
+          php -l pruebas/index.php
